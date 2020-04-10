@@ -21,10 +21,10 @@ def default_response():
 @app.route("/purchase_a_sword",methods = ['POST'])
 def purchase_a_sword():
     if not request.is_json:
-        return "Content not in JSON!",400
+        return "Content not in JSON!\n",400
     data = request.get_json()
     if 'username' not in data or data['username'] == '':
-        return "Missing User info!",400
+        return "Missing User info!\n",400
 
     purchase_event = {
         'event_type' : 'purchase',
@@ -38,10 +38,10 @@ def purchase_a_sword():
 @app.route("/purchase_an_axe",methods = ['POST'])
 def purchase_an_axe():
     if not request.is_json:
-        return "Content not in JSON!",400
+        return "Content not in JSON!\n",400
     data = request.get_json()
     if 'username' not in data or data['username'] == '':
-        return "Missing User info!",400
+        return "Missing User info!\n",400
 
     purchase_event = {
         'event_type' : 'purchase',
@@ -54,10 +54,10 @@ def purchase_an_axe():
 @app.route("/create_user",methods = ['POST'])
 def create_user():
     if not request.is_json:
-        return "Content not in JSON!",400
+        return "Content not in JSON!\n",400
     data = request.get_json()
     if 'username' not in data or data['username'] == '':
-        return "Missing User info!",400
+        return "Missing User info!\n",400
 
     user_event = {
         'event_type': 'create_user',
@@ -69,13 +69,13 @@ def create_user():
 @app.route("/join_guild",methods = ['POST'])
 def join_guild():
     if not request.is_json:
-        return "Content not in JSON!",400
+        return "Content not in JSON!\n",400
     data = request.get_json()
     if 'username' not in data or data['username'] == '':
-        return "Missing User info!",400
+        return "Missing User info!\n",400
 
     if 'guild_type' not in data or data['guild_type'] == '':
-        return "Missing guild info!",400
+        return "Missing guild info!\n",400
     guild_event = {
         'event_type': 'join_guild',
         'user'      : data['username'],
@@ -87,10 +87,10 @@ def join_guild():
 @app.route("/player_died",methods = ['POST'])
 def player_died():
     if not request.is_json:
-        return "Content not in JSON!",400
+        return "Content not in JSON!\n",400
     data = request.get_json()
     if 'username' not in data or data['username'] == '':
-        return "Missing User info!",400
+        return "Missing User info!\n",400
 
     died_event = {
         'event_type' : 'player_died',
