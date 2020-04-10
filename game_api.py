@@ -23,7 +23,7 @@ def purchase_a_sword():
     if not request.is_json:
         return "Content not in JSON!\n",400
     data = request.get_json()
-    if 'username' not in data or data['username'] == '':
+    if data is None or 'username' not in data or data['username'] == '':
         return "Missing User info!\n",400
 
     purchase_event = {
@@ -40,7 +40,7 @@ def purchase_an_axe():
     if not request.is_json:
         return "Content not in JSON!\n",400
     data = request.get_json()
-    if 'username' not in data or data['username'] == '':
+    if data is None or 'username' not in data or data['username'] == '':
         return "Missing User info!\n",400
 
     purchase_event = {
@@ -56,7 +56,7 @@ def create_user():
     if not request.is_json:
         return "Content not in JSON!\n",400
     data = request.get_json()
-    if 'username' not in data or data['username'] == '':
+    if data is None or 'username' not in data or data['username'] == '':
         return "Missing User info!\n",400
 
     user_event = {
@@ -71,7 +71,7 @@ def join_guild():
     if not request.is_json:
         return "Content not in JSON!\n",400
     data = request.get_json()
-    if 'username' not in data or data['username'] == '':
+    if data is None or 'username' not in data or data['username'] == '':
         return "Missing User info!\n",400
 
     if 'guild_type' not in data or data['guild_type'] == '':
@@ -89,7 +89,7 @@ def player_died():
     if not request.is_json:
         return "Content not in JSON!\n",400
     data = request.get_json()
-    if 'username' not in data or data['username'] == '':
+    if data is None or 'username' not in data or data['username'] == '':
         return "Missing User info!\n",400
 
     died_event = {
