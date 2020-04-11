@@ -10,17 +10,11 @@ from pyspark.sql.types import StructType, StructField, StringType
 def user_event_schema():
     """
     root
-    |-- Accept: string (nullable = true)
-    |-- Host: string (nullable = true)
-    |-- User-Agent: string (nullable = true)
     |-- event_type: string (nullable = true)
     |-- user: string (nullable = false)
     |-- timestamp: string (nullable = true)
     """
     return StructType([
-        StructField("Accept", StringType(), True),
-        StructField("Host", StringType(), True),
-        StructField("User-Agent", StringType(), True),
         StructField("event_type", StringType(), False),
         StructField("user", StringType(), False),
     ])

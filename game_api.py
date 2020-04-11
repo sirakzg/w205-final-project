@@ -8,7 +8,6 @@ producer = KafkaProducer(bootstrap_servers='kafka:29092')
 
 
 def log_to_kafka(topic, event):
-    event.update(request.headers)
     producer.send(topic, json.dumps(event).encode())
 
 
@@ -28,8 +27,9 @@ def purchase_a_sword():
 
     purchase_event = {
         'event_type' : 'purchase',
-        'weapon_type': 'sword',
-        'user'       : data['username']
+        'user'       : data['username'],
+        'weapon_type': 'sword'
+
     }
     log_to_kafka('purchases', purchase_event)
     return "Sword Purchased!\n"
@@ -45,8 +45,8 @@ def purchase_an_axe():
 
     purchase_event = {
         'event_type' : 'purchase',
-        'weapon_type': 'axe',
-        'user'       : data['username']
+        'user'       : data['username'],
+        'weapon_type': 'axe'
     }
     log_to_kafka('purchases', purchase_event)
     return "Axe Purchased!\n"

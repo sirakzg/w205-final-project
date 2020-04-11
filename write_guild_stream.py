@@ -10,21 +10,15 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 def guild_event_schema():
     """
     root
-    |-- Accept: string (nullable = true)
-    |-- Host: string (nullable = true)
-    |-- User-Agent: string (nullable = true)
     |-- event_type: string (nullable = false)
     |-- guild_type: string (nullable = false)
     |-- user: string (nullable = false)
     |-- timestamp: string (nullable = true)
     """
     return StructType([
-        StructField("Accept", StringType(), True),
-        StructField("Host", StringType(), True),
-        StructField("User-Agent", StringType(), True),
         StructField("event_type", StringType(), False),
+        StructField("user", StringType(), True),
         StructField("guild_type", IntegerType(), True),
-        StructField("username", StringType(), True),
     ])
 
 
