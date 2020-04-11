@@ -42,23 +42,22 @@ def main():
         .readStream \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "kafka:29092") \
-        .option("subscribe", "events") \
+        .option("subscribe", "users") \
         .load()
 
     user = raw_events \
         .filter(is_create_user(raw_events.value.cast('string'))) \
-        .select(raw_events.value.cast('string').alias('raw_event'),
-                raw_events.timestamp.cast('string'),
+        .select(raw_events.timestamp.cast('string'),
                 from_json(raw_events.value.cast('string'),
                           user_event_schema()).alias('json')) \
-        .select('raw_event', 'timestamp', 'json.*')
+        .select('timestamp', 'json.*')
 
     sink = user \
         .writeStream \
         .format("parquet") \
         .option("checkpointLocation", "/tmp/checkpoints_for_create_user") \
         .option("path", "/tmp/users") \
-        .trigger(processingTime="10 seconds") \
+        .trigger(processingTime="30 seconds") \
         .start()
 
     sink.awaitTermination()

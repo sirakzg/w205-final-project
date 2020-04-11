@@ -49,11 +49,10 @@ def main():
 
     guilds = raw_events \
         .filter(is_guild_event(raw_events.value.cast('string'))) \
-        .select(raw_events.value.cast('string').alias('raw_event'),
-                raw_events.timestamp.cast('string'),
+        .select(raw_events.timestamp.cast('string'),
                 from_json(raw_events.value.cast('string'),
                           guild_event_schema()).alias('json')) \
-        .select('raw_event', 'timestamp', 'json.*')
+        .select('timestamp', 'json.*')
 
     sink = guilds \
         .writeStream \

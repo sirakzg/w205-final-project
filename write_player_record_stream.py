@@ -57,11 +57,10 @@ def main():
 
     death = raw_events \
         .filter(is_player_death(raw_events.value.cast('string'))) \
-        .select(raw_events.value.cast('string').alias('raw_event'),
-                raw_events.timestamp.cast('string'),
+        .select(raw_events.timestamp.cast('string'),
                 from_json(raw_events.value.cast('string'),
                           player_death_event_schema()).alias('json')) \
-        .select('raw_event', 'timestamp', 'json.*')
+        .select('timestamp', 'json.*')
 
     sink = death \
         .writeStream \

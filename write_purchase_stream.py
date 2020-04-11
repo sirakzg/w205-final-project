@@ -49,11 +49,10 @@ def main():
 
     purchases = raw_events \
         .filter(is_purchase(raw_events.value.cast('string'))) \
-        .select(raw_events.value.cast('string').alias('raw_event'),
-                raw_events.timestamp.cast('string'),
+        .select(raw_events.timestamp.cast('string'),
                 from_json(raw_events.value.cast('string'),
                           purchase_event_schema()).alias('json')) \
-        .select('raw_event', 'timestamp', 'json.*')
+        .select('timestamp', 'json.*')
 
     sink = purchases \
         .writeStream \
