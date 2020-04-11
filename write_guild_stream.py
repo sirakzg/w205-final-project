@@ -52,7 +52,7 @@ def main():
         .select(raw_events.timestamp.cast('string'),
                 from_json(raw_events.value.cast('string'),
                           guild_event_schema()).alias('json')) \
-        .select('timestamp', 'json.*')
+        .select('json.*','timestamp')
 
     sink = guilds \
         .writeStream \
