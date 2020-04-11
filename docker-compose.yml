@@ -34,7 +34,7 @@ services:
                        kafka-topics --create --topic purchases --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
                        kafka-topics --create --topic users --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
                        kafka-topics --create --topic guilds --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
-                       kafka-topics --create --topic records --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181"
+                       kafka-topics --create --topic records --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181'"
   cloudera:
     image: midsw205/hadoop:0.0.2
     hostname: cloudera
