@@ -28,13 +28,7 @@ services:
       - "29092"
     extra_hosts:
       - "moby:127.0.0.1"
-    command: "bash -c 'echo Waiting for Kafka to be ready... && \
-                       sleep 60 && \
-                       kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
-                       kafka-topics --create --topic purchases --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
-                       kafka-topics --create --topic users --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
-                       kafka-topics --create --topic guilds --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181 && \
-                       kafka-topics --create --topic records --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181'"
+    
   cloudera:
     image: midsw205/hadoop:0.0.2
     hostname: cloudera
