@@ -9,20 +9,20 @@
 
 
 #create a test user
-docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/data/user_json.txt http://localhost:5000/create_user
+docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/test/user_json.txt http://localhost:5000/create_user
 
 
 #buy sword
-docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/data/user_json.txt http://localhost:5000/purchase_a_sword
+docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/test/user_json.txt http://localhost:5000/purchase_a_sword
 
 
 #buy axe
-docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/data/user_json.txt http://localhost:5000/purchase_an_axe
+docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/test/user_json.txt http://localhost:5000/purchase_an_axe
 
 
 #join guild
-docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/data/guild_json.txt http://localhost:5000/join_guild
+docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/test/guild_json.txt http://localhost:5000/join_guild
 
 
 #record death
-docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/data/record_json.txt http://localhost:5000/player_died
+docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/test/record_json.txt http://localhost:5000/player_died
