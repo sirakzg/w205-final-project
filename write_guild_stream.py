@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-"""Extract guild events from kafka and write them to hdfs
-"""
+# -----------------------------------------------------------
+# Extract join guild events from kafka and write them to hdfs
+# Date: 4/12/2020
+# Author: Jacky Ma & Sirak Ghebremusse
+# -----------------------------------------------------------
 import json
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, from_json
@@ -40,6 +43,7 @@ def main():
         .appName("ExtractEventsJob") \
         .getOrCreate()
 
+    #listening on guilds topic
     raw_events = spark \
         .readStream \
         .format("kafka") \
@@ -47,6 +51,7 @@ def main():
         .option("subscribe", "guilds") \
         .load()
 
+    #only want to write event data and timestamp
     guilds = raw_events \
         .filter(is_guild_event(raw_events.value.cast('string'))) \
         .select(raw_events.timestamp.cast('string'),
@@ -54,6 +59,7 @@ def main():
                           guild_event_schema()).alias('json')) \
         .select('json.*','timestamp')
 
+    #write to /tmp/guilds in hdfs every 30s
     sink = guilds \
         .writeStream \
         .format("parquet") \
