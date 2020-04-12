@@ -10,15 +10,19 @@
 
 #create a test user
 docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/user_json.txt http://localhost:5000/create_user
+sleep 1
 
 #buy sword
 docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/user_json.txt http://localhost:5000/purchase_a_sword
+sleep 1
 
 #buy axe
 docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/user_json.txt http://localhost:5000/purchase_an_axe
+sleep 1
 
 #join guild
 docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/guild_json.txt http://localhost:5000/join_guild
+sleep 1
 
 #record death
 docker-compose exec mids ab -n 1 -T application/json -p /w205/w205-final-project/record_json.txt http://localhost:5000/player_died
