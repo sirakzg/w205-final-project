@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-"""Extract player death purchase events from kafka and write them to hdfs
-"""
+# -----------------------------------------------------------
+# Extract player death events from kafka and write them to hdfs
+# Date: 4/12/2020
+# Author: Jacky Ma & Sirak Ghebremusse
+# -----------------------------------------------------------
 import json
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, from_json
@@ -48,6 +51,7 @@ def main():
         .appName("ExtractEventsJob") \
         .getOrCreate()
 
+    #listening on records topic
     raw_events = spark \
         .readStream \
         .format("kafka") \
@@ -55,6 +59,7 @@ def main():
         .option("subscribe", "records") \
         .load()
 
+    #only want the event data and timestamp
     death = raw_events \
         .filter(is_player_death(raw_events.value.cast('string'))) \
         .select(raw_events.timestamp.cast('string'),
@@ -62,6 +67,7 @@ def main():
                           player_death_event_schema()).alias('json')) \
         .select('json.*','timestamp')
 
+    #30 sec batch job
     sink = death \
         .writeStream \
         .format("parquet") \

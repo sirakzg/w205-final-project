@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-"""Extract user events from kafka and write them to hdfs
-"""
+# -----------------------------------------------------------
+# Extract create user events from kafka and write them to hdfs
+# Date: 4/12/2020
+# Author: Jacky Ma & Sirak Ghebremusse
+# -----------------------------------------------------------
 import json
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, from_json
@@ -38,6 +41,7 @@ def main():
         .appName("ExtractEventsJob") \
         .getOrCreate()
 
+    #listening on users topic
     raw_events = spark \
         .readStream \
         .format("kafka") \
@@ -45,6 +49,7 @@ def main():
         .option("subscribe", "users") \
         .load()
 
+    #only want to write the event data and timestamp
     user = raw_events \
         .filter(is_create_user(raw_events.value.cast('string'))) \
         .select(raw_events.timestamp.cast('string'),
@@ -52,6 +57,7 @@ def main():
                           user_event_schema()).alias('json')) \
         .select('json.*','timestamp')
 
+    #write to /tmp/usrs in hdfs every 30s
     sink = user \
         .writeStream \
         .format("parquet") \

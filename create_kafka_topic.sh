@@ -1,4 +1,11 @@
 #!/bin/sh
+#title           :create_kafka_topic.sh
+#description     :This script will create the 5 topics for our game data pipeline
+#author		       :Jacky Ma & Sirak Ghebremusse
+#date            :4/12/2020
+#version         :0.1
+#usage		       :bash create_kafka_topic.sh
+#notes           :Wait until kafka broker is up, use "docker-compose exec kafka cub kafka-ready -b kafka:29092 1 20"
 
 echo "Creating the events topic in kafka"
 docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
