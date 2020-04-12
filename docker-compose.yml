@@ -44,7 +44,8 @@ services:
       - "8888:8888"
     extra_hosts:
       - "moby:127.0.0.1"
-    command: bash -c $"hive -e "create external table if not exists default.purchases (event_type string, user string, weapon_type string,  timestamp string) stored as parquet location '/tmp/purchases'  tblproperties ("parquet.compress"="SNAPPY");"
+    command: bash -c $"hive -e "create external table if not exists default.purchases (event_type string, user string, weapon_type string,  timestamp string) stored as parquet location '/tmp/purchases'  tblproperties 'parquet.compress'='SNAPPY');""
+
   spark:
     image: midsw205/spark-python:0.0.6
     stdin_open: true
