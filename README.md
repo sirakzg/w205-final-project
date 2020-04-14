@@ -4,6 +4,8 @@ This project demonstrates a simple data pipeline from the app level to the datab
 The API server is served using Flask, and each incoming events are queued in kafka and read by 4 dedicated spark sessions to write to HDFS.
 The user can then use presto to query against the database for further analysis such as balancing the game and improve the user experience.
 
+Playable web version can be found at [http://sirak.ca/kafka-slayer/](http://sirak.ca/kafka-slayer/).
+
 ## Getting Started
 
 clone the repo below:
