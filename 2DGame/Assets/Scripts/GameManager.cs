@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
 
     private bool levelLoaded = false;
 
-    public GameObject menu_Ui;
-    public GameObject game_Ui;
+    public GameObject menu_UI;
+    public GameObject game_UI;
     public Text health_text;
     public Text gold_text;
     public Text kills_text;
@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
 
         Color default_color = new Color(0.8784f, 0.8784f, 0.8784f,1f);
         notSelected.colorMultiplier = 1f;
-        notSelected.normalColor = new Color(1f, 1f, 1f, 1f);
-        notSelected.selectedColor = new Color(1f, 1f, 1f, 1f);
+        notSelected.normalColor = default_color;
+        notSelected.selectedColor = default_color;
         notSelected.highlightedColor = default_color;
         notSelected.pressedColor = default_color;
         notSelected.disabledColor = new Color(0.8784f, 0.8784f, 0.8784f, 0.50f);
@@ -80,14 +80,13 @@ public class GameManager : MonoBehaviour
     {
         if (levelLoaded) return;
 
-        Debug.Log("StartLevel pushed");
+        levelLoaded = true;
         gameKills = 0;
         kills_text.text = "Kills:\n" + gameKills;
 
-        SceneManager.LoadSceneAsync("Scenes/Level1", LoadSceneMode.Additive);
-        levelLoaded = true;
-        menu_Ui.SetActive(false);
-        game_Ui.SetActive(true);
+        SceneManager.LoadScene("Scenes/Level1", LoadSceneMode.Additive);
+        menu_UI.SetActive(false);
+        game_UI.SetActive(true);
         instruct_text.SetActive(true);
         credits_text.SetActive(false);
     }
@@ -96,10 +95,10 @@ public class GameManager : MonoBehaviour
     {
         if (!levelLoaded) return;
 
-        SceneManager.UnloadSceneAsync("Scenes/Level1");
+        SceneManager.UnloadScene("Scenes/Level1");
         levelLoaded = false;
-        menu_Ui.SetActive(true);
-        game_Ui.SetActive(false);
+        menu_UI.SetActive(true);
+        game_UI.SetActive(false);
 
         string weapon = this.weaponType == 0 ? "sword" : "axe";
         NetworkManager._instance.Send_PlayerDeath(username, this.guild, 1, weapon, this.gold, this.gameKills);
@@ -122,7 +121,7 @@ public class GameManager : MonoBehaviour
         if (player_health >= 0)
             _instance.health_text.text = "Health:\n" + player_health;
 
-        if (player_health < 0)
+        if (player_health == -1)
             _instance.PlayerDied();
     }
 

@@ -51,7 +51,6 @@ public class NetworkManager : MonoBehaviour
             Debug.Log("NetworkManager Success: " + api.text);
         else
             Debug.LogError("NetworkManager Error: " + api.error);
-
     }
 
     public void Send_CreateUser(string username = "testuser_00")
